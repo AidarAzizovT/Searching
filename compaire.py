@@ -28,24 +28,27 @@ def binary_search(lst, target):
             return lst[mid][1]
 
 
-def just_search(lst: List[Tuple[str, str]], target: str) -> str:
+def simple_search(lst: List[Tuple[str, str]], target: str) -> str:
     for element in lst:
         if element[0] == target:
             return element[1]
     return None
 
 
-lst = [(str(i), str(i)) for i in range(100)]
+result_dict = {'N': [i for i in range(1, 10)], 'Кол-во контактов': [10**i for i in range(1, 10)], 'Simple search': [], 'Binary Search': []}
+for j in range(1, 5):
+    N = 10**j
+    lst = [(str(i), str(i)) for i in range(N)]
 
 
-start = time()
-print(just_search(lst, "43"))
-end = time()
-print(f"Time of running function 'just_search' is {(end-start)} seconds\n\n\n")
+    start = time()
+    result_list = [simple_search(lst, str(randint(0, N - 1))) for i in range(100)]
+    end = time()
+    result_dict['Simple search'].append((end - start)/100)
 
+    start = time()
+    result_list = [binary_search(lst, str(randint(0, N - 1))) for i in range(100)]
+    end = time()
+    result_dict['Binary Search'].append((end - start)/100)
 
-start = time()
-lst.sort()
-print(binary_search(lst, "43"))
-end = time()
-print(f"Time of running function 'binary search' is {(end-start)} seconds\n\n\n")
+print(result_dict)
